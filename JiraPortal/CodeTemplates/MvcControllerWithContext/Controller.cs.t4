@@ -34,15 +34,19 @@ using System.Web.Mvc;
 using <#= Namespace #>.Models;
 using <#= Namespace #>.Data;
 using <#= Namespace #>.Services;
-Namespace <#= Namespace #>
-ModelTypeName <#= ModelTypeName #>
-ModelVariable <#= ModelVariable #>
-ControllerRootName <#= ControllerRootName #>
-ControllerName <#= ControllerName #> 
+//Namespace <#= Namespace #>
+//ModelTypeName <#= ModelTypeName #>
+//ModelVariable <#= ModelVariable #>
+//ControllerRootName <#= ControllerRootName #>
+//ControllerName <#= ControllerName #> 
 
 
 namespace <#= Namespace #> 
 {
+    public class <#= ModelTypeName #>ViewModel
+    {
+        public <#= ModelTypeName #> <#= ModelTypeName #> { get; set; }
+    }
     public class <#= ModelTypeName #>sController : Controller
     {
         private readonly I<#= ModelTypeName #>Service _<#= ModelVariable #>Service; 

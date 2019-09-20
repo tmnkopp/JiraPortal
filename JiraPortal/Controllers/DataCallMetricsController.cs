@@ -8,18 +8,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using JiraPortal.Controllers.Models;
-using JiraPortal.Controllers.Data;
-using JiraPortal.Controllers.Services;
-Namespace JiraPortal.Controllers
-ModelTypeName DataCallMetric
-ModelVariable dataCallMetric
-ControllerRootName DataCallMetrics
-ControllerName DataCallMetricsController 
+using JiraPortal.Models;
+using JiraPortal.Data; 
+//Namespace JiraPortal.Controllers
+//ModelTypeName DataCallMetric
+//ModelVariable dataCallMetric
+//ControllerRootName DataCallMetrics
+//ControllerName DataCallMetricsController 
 
 
-namespace JiraPortal.Controllers.Controllers
+namespace JiraPortal.Controllers 
 {
+    public class DataCallMetricViewModel
+    {
+        public DataCallMetric DataCallMetric { get; set; }
+    }
     public class DataCallMetricsController : Controller
     {
         private readonly IDataCallMetricService _dataCallMetricService; 
@@ -69,7 +72,7 @@ namespace JiraPortal.Controllers.Controllers
 
             vm.DataCallMetric = new DataCallMetric()
             {
-                DataCallMetricId = 0 
+                 IDText = "0" 
             }; 
             return View(vm); 
         } 
@@ -141,7 +144,7 @@ namespace JiraPortal.Controllers.Controllers
         }
         public DataCallMetricService(IRepository<DataCallMetric> dataCallMetricRepository)
         {
-            _DataCallMetricRepository = dataCallMetricRepository;
+            _dataCallMetricRepository = dataCallMetricRepository;
         }
         public virtual DataCallMetric GetById(int DataCallMetricId)
         {
@@ -169,7 +172,7 @@ namespace JiraPortal.Controllers.Controllers
         {
             if (dataCallMetric == null)
                 throw new ArgumentNullException("DataCallMetric");
-            _DataCallMetricRepository.Delete(dataCallMetric);
+            _dataCallMetricRepository.Delete(dataCallMetric);
         }
     }
  }    
