@@ -1,0 +1,198 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="ControllerName" #>
+<#@ parameter type="System.String" name="ControllerRootName" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="AreaName" #>
+<#@ parameter type="System.String" name="ContextTypeName" #>
+<#@ parameter type="System.String" name="ModelTypeName" #>
+<#@ parameter type="System.String" name="ModelVariable" #>
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.String" name="EntitySetVariable" #>
+<#@ parameter type="System.Boolean" name="UseAsync" #>
+<#@ parameter type="System.Boolean" name="IsOverpostingProtectionRequired" #>
+<#@ parameter type="System.String" name="BindAttributeIncludeText" #>
+<#@ parameter type="System.String" name ="OverpostingWarningMessage" #>
+<#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
+ 
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using <#= Namespace #>.Models;
+using <#= Namespace #>.Data;
+using <#= Namespace #>.Services;
+Namespace <#= Namespace #>
+ModelTypeName <#= ModelTypeName #>
+ModelVariable <#= ModelVariable #>
+ControllerRootName <#= ControllerRootName #>
+ControllerName <#= ControllerName #> 
+
+
+namespace <#= Namespace #> 
+{
+    public class <#= ModelTypeName #>sController : Controller
+    {
+        private readonly I<#= ModelTypeName #>Service _<#= ModelVariable #>Service; 
+        public <#= ModelTypeName #>sController(
+            I<#= ModelTypeName #>Service <#= ModelTypeName #>Service )
+        {
+            this._<#= ModelVariable #>Service = <#= ModelTypeName #>Service; 
+        }
+        public <#= ModelTypeName #>sController()
+        {
+
+        }
+        [NonAction]
+        protected virtual <#= ModelTypeName #>ViewModel PrepareViewModel(<#= ModelTypeName #> <#= ModelVariable #> )
+        {
+            if (<#= ModelVariable #> == null)
+                throw new ArgumentNullException("<#= ModelTypeName #>");
+                 
+            var model = new <#= ModelTypeName #>ViewModel
+            {
+                <#= ModelTypeName #> = <#= ModelVariable #>
+            };
+            return model;
+        } 
+        public ActionResult Index()
+        {
+            var items = new List<<#= ModelTypeName #>ViewModel>();
+            IEnumerable<<#= ModelTypeName #>> <#= ModelVariable #>s = _<#= ModelVariable #>Service.GetAll(); 
+
+            foreach (var item in <#= ModelVariable #>s) 
+                items.Add(PrepareViewModel(item));
+    
+            return View(items.ToList());
+        } 
+        public ActionResult Details(int id)
+        { 
+            <#= ModelTypeName #> <#= ModelVariable #> = _<#= ModelVariable #>Service.GetById(id);
+            if (<#= ModelVariable #> == null)
+            {
+                return HttpNotFound();
+            }
+            return View(<#= ModelVariable #>);
+        } 
+        public ActionResult Create()
+        {
+            var vm = new <#= ModelTypeName #>ViewModel();
+
+            vm.<#= ModelTypeName #> = new <#= ModelTypeName #>()
+            {
+                <#= ModelTypeName #>Id = 0 
+            }; 
+            return View(vm); 
+        } 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(<#= ModelTypeName #>ViewModel VM)
+        {
+            <#= ModelTypeName #> <#= ModelVariable #> = VM.<#= ModelTypeName #>;
+            if (ModelState.IsValid)
+            { 
+                _<#= ModelVariable #>Service.Insert(<#= ModelVariable #>);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors); 
+            }
+            return View(<#= ModelVariable #>);
+        } 
+        public ActionResult Edit(int id)
+        {
+            var <#= ModelVariable #> = _<#= ModelVariable #>Service.GetById(id);
+            <#= ModelTypeName #>ViewModel vm = PrepareViewModel( <#= ModelVariable #> );
+              
+            return View(vm);
+        } 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(<#= ModelTypeName #>ViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                 _<#= ModelVariable #>Service.Update(vm.<#= ModelTypeName #>);
+                return RedirectToAction("Index");
+            }
+            return View(vm);
+        } 
+        public ActionResult Delete(int id)
+        {
+            <#= ModelTypeName #> <#= ModelVariable #> = _<#= ModelVariable #>Service.GetById(id);
+            if (<#= ModelVariable #> == null)
+                return HttpNotFound();
+                 
+            return View(<#= ModelVariable #>);
+        } 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            <#= ModelTypeName #> <#= ModelVariable #> = _<#= ModelVariable #>Service.GetById(id);
+            _<#= ModelVariable #>Service.Delete(<#= ModelVariable #>);
+            return RedirectToAction("Index");
+        } 
+    }
+ 
+    public interface I<#= ModelTypeName #>Service
+    {
+        void Delete(<#= ModelTypeName #> <#= ModelVariable #>);
+        IQueryable<<#= ModelTypeName #>> GetAll();
+        <#= ModelTypeName #> GetById(int <#= ModelTypeName #>Id);
+        void Insert(<#= ModelTypeName #> <#= ModelVariable #>);
+        void Update(<#= ModelTypeName #> <#= ModelVariable #>);
+    }
+    public class <#= ModelTypeName #>Service : I<#= ModelTypeName #>Service
+    {
+        private readonly IRepository<<#= ModelTypeName #>> _<#= ModelVariable #>Repository; 
+        public <#= ModelTypeName #>Service()
+        {
+        }
+        public <#= ModelTypeName #>Service(IRepository<<#= ModelTypeName #>> <#= ModelVariable #>Repository)
+        {
+            _<#= ModelVariable #>Repository = <#= ModelVariable #>Repository;
+        }
+        public virtual <#= ModelTypeName #> GetById(int <#= ModelTypeName #>Id)
+        {
+            <#= ModelTypeName #> <#= ModelVariable #> = _<#= ModelVariable #>Repository.GetById(<#= ModelTypeName #>Id);
+            return <#= ModelVariable #>;
+        }
+        public virtual IQueryable<<#= ModelTypeName #>> GetAll()
+        {
+            IQueryable<<#= ModelTypeName #>> <#= ModelVariable #>s = _<#= ModelVariable #>Repository.Table;
+            return <#= ModelVariable #>s;
+        }
+        public virtual void Insert(<#= ModelTypeName #> <#= ModelVariable #>)
+        {
+            if (<#= ModelVariable #> == null)
+                throw new ArgumentNullException("<#= ModelTypeName #>");
+            _<#= ModelVariable #>Repository.Insert(<#= ModelVariable #>);
+        }
+        public virtual void Update(<#= ModelTypeName #> <#= ModelVariable #>)
+        {
+            if (<#= ModelVariable #> == null)
+                throw new ArgumentNullException("<#= ModelTypeName #>");
+            _<#= ModelVariable #>Repository.Update(<#= ModelVariable #>);
+        }
+        public virtual void Delete(<#= ModelTypeName #> <#= ModelVariable #>)
+        {
+            if (<#= ModelVariable #> == null)
+                throw new ArgumentNullException("<#= ModelTypeName #>");
+            _<#= ModelVariable #>Repository.Delete(<#= ModelVariable #>);
+        }
+    }
+ }    

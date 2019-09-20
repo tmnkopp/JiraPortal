@@ -29,5 +29,7 @@ namespace JiraPortal.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<JiraPortal.Models.DataCallMetric> DataCallMetrics { get; set; }
     }
 }

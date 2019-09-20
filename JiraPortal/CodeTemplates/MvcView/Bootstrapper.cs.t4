@@ -1,0 +1,16 @@
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cs" #>
+<#@ include file="Imports.include.t4" #>
+
+<#= ViewDataTypeName #>
+<#= ViewDataTypeShortName #>
+<#
+IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+foreach (PropertyMetadata property in properties) { 
+#> 
+    <#= GetValueExpression(property) #> 
+<# 
+}
+#>
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
