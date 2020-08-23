@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using JiraPortal.Data; 
-using Microsoft.EntityFrameworkCore;
+using JiraPortal.Data;
+using JiraPortal.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JiraPortal.Data
 {
@@ -13,7 +15,20 @@ namespace JiraPortal.Data
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         int SaveChanges();
     }
-    
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
+        public System.Data.Entity.DbSet<JiraPortal.Models.DataCallMetric> DataCallMetrics { get; set; }
+    }
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
@@ -28,10 +43,10 @@ namespace JiraPortal.Data
             where TEntity : class, new()
     {
 
-        private readonly JiraPortalContext _context;
+        private readonly ApplicationDbContext _context;
         private DbSet<TEntity> _dbSet;
 
-        public EfRepository(JiraPortalContext context)
+        public EfRepository(ApplicationDbContext context)
         {
             _context = context;
         }

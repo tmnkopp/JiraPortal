@@ -105,7 +105,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JiraPortal\JiraPortal.csproj">
+    <ProjectReference Include="..\JiraPortalNet\JiraPortalNet.csproj">
       <Project>{BEB98308-BEA3-4008-A4EA-30749F19274E}</Project>
       <Name>JiraPortal</Name>
     </ProjectReference>
