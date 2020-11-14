@@ -1,0 +1,19 @@
+﻿@page
+@model DiffModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<textarea class="full">@Model.Sections</textarea>
+<textarea class="full" style="height:5000px;">@Model.Diff</textarea>
+<div class="  ">
+    <div class="row">
+        <div class="col-sm-6">
+            <textarea class="full" style="height:50000px;">@Model.PrevDescriptions</textarea>
+        </div>
+        <div class="col-sm-6">
+            <textarea class="full" style="height:50000px;">@Model.NextDescriptions</textarea>
+        </div>
+    </div> 
+</div>
+

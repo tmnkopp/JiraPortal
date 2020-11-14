@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\JiraCore\JiraCore.csproj" />
+    <ProjectReference Include="..\..\JiraFormatter\JiraFormatter\JiraFormatter.csproj" />
   </ItemGroup>
 
 </Project>

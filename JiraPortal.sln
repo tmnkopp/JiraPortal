@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraCore", "..\JiraCore\Jir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraFormatter", "..\JiraFormatter\JiraFormatter\JiraFormatter.csproj", "{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1180E3DC-1005-43F6-BE69-927A50CF476F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1180E3DC-1005-43F6-BE69-927A50CF476F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
