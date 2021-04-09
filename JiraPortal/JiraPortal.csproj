@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\JiraFormatter\JiraFormatter\JiraFormatter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BOM.CORE">
+      <HintPath>..\..\BrowseOmatic\BOM.CORE\bin\Release\netcoreapp3.1\BOM.CORE.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

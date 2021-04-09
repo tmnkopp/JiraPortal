@@ -25,7 +25,7 @@ namespace JiraPortal.Pages
         public StringBuilder sbNewPicklists = new StringBuilder();
         public void OnGet()
         {
-
+            Response.Redirect("/Template"); 
             JiraFormatter.Program.InvokeProcessor(); 
 
             string src = "C:\\temp\\jira\\!CIO2020Q4$DataCallProcessor\\_dest";

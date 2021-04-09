@@ -45,9 +45,10 @@ namespace JiraPortal.Pages
                     , Builders<JiraIssue>.Update
                     .Set(o => o.description, description)
                     .Set(o => o.desc, desc)
+                    .Set(o => o.section, Regex.Replace(item.section, "FY\\d{1,5}", "").Trim())
                  );
             }
-
+        
             List<JiraIssue> Prev = col.Find(x => Regex.IsMatch(x.epiclink, ".*7411.*")).ToList() ;
             List<JiraIssue> Next = col.Find(x => Regex.IsMatch(x.epiclink, ".*8098.*")).ToList() ;
 
