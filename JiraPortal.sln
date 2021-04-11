@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraPortal", "JiraPortal\Ji
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraCore", "..\JiraCore\JiraCore.csproj", "{4DE901E7-AD45-489B-BDDE-DACE641BF539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraFormatter", "..\JiraFormatter\JiraFormatter\JiraFormatter.csproj", "{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1180E3DC-1005-43F6-BE69-927A50CF476F}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{4DE901E7-AD45-489B-BDDE-DACE641BF539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DE901E7-AD45-489B-BDDE-DACE641BF539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DE901E7-AD45-489B-BDDE-DACE641BF539}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F67FA685-6A00-4EE1-8CBF-764B8EDEDDF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1180E3DC-1005-43F6-BE69-927A50CF476F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1180E3DC-1005-43F6-BE69-927A50CF476F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1180E3DC-1005-43F6-BE69-927A50CF476F}.Release|Any CPU.ActiveCfg = Release|Any CPU
