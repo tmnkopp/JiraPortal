@@ -12,10 +12,10 @@ namespace JiraPortal.Pages
 {
     public class DiffModel : PageModel
     {
-        public string Sections  { get; set; }
+        public string All  { get; set; }
         public string Left { get; set; }
         public string Right { get; set; }
-        public string Top { get; set; }
+        public string Diff { get; set; }
 
         public readonly IConfiguration configuration;
         public readonly ILoggerFactory logger;
@@ -28,20 +28,37 @@ namespace JiraPortal.Pages
         public void OnGet()
         {
             string source;
-            using (TextReader tr = System.IO.File.OpenText(@"C:\_som\_src\_compile\IG\DB_Update7.34_IG_2021.sql"))
+            using (TextReader tr = System.IO.File.OpenText(@"C:\_som\_src\_compile\BOD\DB_Update7.34_BOD_2021.sql"))
                 source = tr.ReadToEnd();
-  
-            var issues = new JiraIssueProvider(issue => Regex.IsMatch(issue.epic, ".*FY21.*")).Items; 
+
+            var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2020.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
+            foreach (var issue in prev)
+            {
+                Left += $"\n{issue.section.Substring(0, 25)}\n";
+                Left += $"\n{issue.description.Hash()}\n";
+
+            }
+            var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
+            foreach (var issue in next)
+            {
+                Right += $"\n{issue.section.Substring(0, 25)}\n";
+                Right += $"\n{issue.description.Hash()}\n";
+            }
+
+            var issues = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") &&  Regex.IsMatch(i.title, ".*Section.*")).Items; 
             foreach (var issue in issues)
             {
+                All += $"\n\n{issue.section}\n";
                 foreach (var item in issue.issueitems)
                 {
-                    if (!source.Hash().Contains(item.hash))
-                    {
-                        Top += $"{issue.title}\n\n{item.metrictext.StripHTML() }\n\n\n";
-                    }
+                    All += $"\n{item.metricid}\n{item.metrictext}\n\n";
+                    if (!source.Hash().ToLower().Contains(item.metrictext.Hash().ToLower())) 
+                        Diff += $"{issue.title}\n\n{item.metrictext.StripHTML() }\n\n\n";
+                  
                 }    
-            } 
+            }
+
+
         } 
     }
 }
