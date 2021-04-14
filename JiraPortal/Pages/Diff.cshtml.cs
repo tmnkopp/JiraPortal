@@ -34,15 +34,15 @@ namespace JiraPortal.Pages
             var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2020.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
             foreach (var issue in prev)
             {
-                Left += $"\n{issue.section.Substring(0, 25)}\n";
-                Left += $"\n{issue.description.Hash()}\n";
+                Left += $"\n{issue.section }\n";
+                //Left += $"\n{issue.description.Hash()}\n";
 
             }
             var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
             foreach (var issue in next)
             {
-                Right += $"\n{issue.section.Substring(0, 25)}\n";
-                Right += $"\n{issue.description.Hash()}\n";
+                Right += $"\n{issue.section}\n";
+                //Right += $"\n{issue.description.Hash()}\n";
             }
 
             var issues = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") &&  Regex.IsMatch(i.title, ".*Section.*")).Items; 
