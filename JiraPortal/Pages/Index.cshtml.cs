@@ -22,11 +22,11 @@ namespace JiraPortal.Pages
             this.configuration = configuration;
             this.logger = logger; 
         }
-        [BindProperty(SupportsGet=true) ]
+        [BindProperty(SupportsGet=true)]
         public string Action { get; set; } 
         public void OnGet()
         {
-            Response.Redirect("/Diff");  
+            Response.Redirect("/Template");  
         } 
     }
 }

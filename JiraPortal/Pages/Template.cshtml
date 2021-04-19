@@ -6,23 +6,21 @@
 @using (Html.BeginForm("Template", "Template", FormMethod.Post))
 {
     <input type="submit" value="submit" />
-    <br />
-    <input type="text" asp-for="PK" class="full form-input" value="@Model.PK" id="PK" name="PK" />
-    <input type="text" asp-for="GROUP" class="full form-input" value="@Model.GROUP" id="GROUP" name="GROUP" />
-    <br />
-    <textarea class="full" style="height:50px;">@Model.Input</textarea>
-    <textarea class="full" style="height:50vh; font-size:.9em;">@Model.Output</textarea>
-
-    <textarea class="full" style="height:30vh;">@Model.Sections</textarea>
+    <br /> 
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 10vh; ">@Model.Head</textarea>
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 80vh; ">@Model.Body</textarea>
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 50vh; ">@Model.Footer</textarea>
     <div class="  ">
         <div class="row">
             <div class="col-sm-6">
-                <textarea class="full" style="height:50000px;"> </textarea>
+                <textarea class="full" style="height: 100vh;">@Model.Left</textarea>
             </div>
             <div class="col-sm-6">
-                <textarea class="full" style="height:50000px;"> </textarea>
+                <textarea class="full" style="height: 100vh;">@Model.Right</textarea>
             </div>
         </div>
     </div>
-    <input type="text" class="full form-input" value="@Model.Input" id="Input" name="Input" />
+
+
+
 }

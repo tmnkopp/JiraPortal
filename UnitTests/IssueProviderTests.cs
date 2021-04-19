@@ -33,7 +33,7 @@ namespace UnitTests
             var config = new UnitTestManager().Configuration;
             var mock = new Mock<ILogger>();
             ILogger logger = mock.Object; 
-            JiraEpic jiraEpic = new JiraEpic("https://dayman.cyber-balance.com/jira/browse/CS-7524");
+            JiraEpic jiraEpic = new JiraEpic("https://dayman.cyber-balance.com/jira/browse/CS-8132");
             EpicPopulator epicPopulator = new EpicPopulator(config, logger);
             epicPopulator.Populate(jiraEpic);
         }

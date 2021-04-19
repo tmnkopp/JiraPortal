@@ -56,9 +56,7 @@ namespace JiraPortal.Pages
                         Diff += $"{issue.title}\n\n{item.metrictext.StripHTML() }\n\n\n";
                   
                 }    
-            }
-
-
+            } 
         } 
     }
 }
