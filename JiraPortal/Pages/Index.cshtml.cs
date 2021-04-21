@@ -26,7 +26,7 @@ namespace JiraPortal.Pages
         public string Action { get; set; } 
         public void OnGet()
         {
-            Response.Redirect("/Template");  
+            Response.Redirect("/Diff");  
         } 
     }
 }

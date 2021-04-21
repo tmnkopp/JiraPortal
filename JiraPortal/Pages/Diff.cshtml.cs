@@ -31,18 +31,18 @@ namespace JiraPortal.Pages
             using (TextReader tr = System.IO.File.OpenText(@"C:\_som\_src\_compile\BOD\DB_Update7.34_BOD_2021.sql"))
                 source = tr.ReadToEnd();
 
-            var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2020.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
+            var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2020.*Modernization.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
             foreach (var issue in prev)
             {
-                Left += $"\n{issue.section }\n";
-                //Left += $"\n{issue.description.Hash()}\n";
+                //Left += $"\n{issue.section }\n";
+                Left += $"\n{issue.description.Hash()}\n";
 
             }
-            var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
+            var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*Modernization.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
             foreach (var issue in next)
             {
-                Right += $"\n{issue.section}\n";
-                //Right += $"\n{issue.description.Hash()}\n";
+                //Right += $"\n{issue.section}\n";
+                Right += $"\n{issue.description.Hash()}\n";
             }
 
             var issues = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") &&  Regex.IsMatch(i.title, ".*Section.*")).Items; 
