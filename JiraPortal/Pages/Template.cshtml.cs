@@ -51,7 +51,7 @@ namespace JiraPortal.Pages
                     PL += 2;
                     int cnt = 1;
                     Footer += string.Format(PicktypeInsert, PLT, $"BODHVA-{PLT}-{item.metricid}", $"BODHVA IDT-{item.metricid}");
-                    Left += $"\nEnum Metric{item.metricid.Replace(".","_")}"; 
+                    Left += $"\nEnum Metric_{item.metricid.Replace(".","_")}"; 
 
                     Footer += "\nSET IDENTITY_INSERT [dbo].[PickLists] ON";
                     Footer += "\nINSERT INTO PickLists(PK_PickList, PK_PickListType, CodeValue,DisplayValue, SortPos, LastUpdated, isActive) VALUES ";
@@ -61,7 +61,7 @@ namespace JiraPortal.Pages
                         PL++;
                         PickList pl = new PickList(c);
                         Footer += $"\n({PL},@PKT, N'{pl.CodeValue}','{c.Trim()}',{cnt++}, GETDATE(), 1),";
-                        Left += $"\n\t{pl.CodeValue} = {PL}";
+                        Left += $"\n\t{pl.CodeValue} = {PL} '{c.Trim()}";
                     }
                     Left += $"\nEnd Enum";
 
