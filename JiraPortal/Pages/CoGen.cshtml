@@ -1,0 +1,26 @@
+﻿@page
+@model CoGenModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@using (Html.BeginForm("Template", "Template", FormMethod.Post))
+{
+    <input type="submit" value="submit" />
+    <br /> 
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 10vh; ">@Model.Head</textarea>
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 80vh; ">@Model.Body</textarea>
+    <textarea class="full" style="font-size: 10px; width: 999vw; max-width: 999vw; height: 50vh; ">@Model.Footer</textarea>
+    <div class="  ">
+        <div class="row">
+            <div class="col-sm-6">
+                <textarea class="full" style="height: 100vh;">@Model.Left</textarea>
+            </div>
+            <div class="col-sm-6">
+                <textarea class="full" style="height: 100vh;">@Model.Right</textarea>
+            </div>
+        </div>
+    </div>
+
+
+
+}

@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq; 
 using System.Text.RegularExpressions; 
-using JiraCore; 
+using JiraCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging; 
 
 namespace JiraPortal.Pages
 {
+    [BindProperties]
     public class DiffModel : PageModel
     {
         public string All  { get; set; }
         public string Left { get; set; }
         public string Right { get; set; }
         public string Diff { get; set; }
-
+        public string Title { get; set; } = "Modernization"; 
         public readonly IConfiguration configuration;
         public readonly ILoggerFactory logger;
         public DiffModel(IConfiguration configuration, ILoggerFactory logger)
@@ -28,24 +30,11 @@ namespace JiraPortal.Pages
         public void OnGet()
         {
             string source;
-            using (TextReader tr = System.IO.File.OpenText(@"C:\_som\_src\_compile\BOD\DB_Update7.34_BOD_2021.sql"))
+            using (TextReader tr = System.IO.File.OpenText(@"D:\dev\CyberScope\CyberScopeBranch\CSwebdev\database\DB_Update7.34_BOD_2021.sql"))
                 source = tr.ReadToEnd();
 
-            var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2020.*Modernization.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
-            foreach (var issue in prev)
-            {
-                //Left += $"\n{issue.section }\n";
-                Left += $"\n{issue.description.Hash()}\n";
-
-            }
-            var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*Modernization.*") && Regex.IsMatch(i.title, ".*Section.*")).Items;
-            foreach (var issue in next)
-            {
-                //Right += $"\n{issue.section}\n";
-                Right += $"\n{issue.description.Hash()}\n";
-            }
-
-            var issues = new JiraIssueProvider(i => Regex.IsMatch(i.epic, ".*BOD 18-02.*2021.*") &&  Regex.IsMatch(i.title, ".*Section.*")).Items; 
+             
+            var issues = new JiraIssueProvider(i => Regex.IsMatch(i.epic, $".*BOD 18.*2021.*") &&  Regex.IsMatch(i.title, $".*Section.*")).Items; 
             foreach (var issue in issues)
             {
                 All += $"\n\n{issue.section}\n";
@@ -56,7 +45,22 @@ namespace JiraPortal.Pages
                         Diff += $"{issue.title}\n\n{item.metrictext.StripHTML() }\n\n\n";
                   
                 }    
-            } 
+            }
+             
+            var prev = new JiraIssueProvider(i => Regex.IsMatch(i.epic, $".*BOD 18-02.*2020.*{Title}.*") && Regex.IsMatch(i.title, $".*Section.*")).Items;
+            foreach (var issue in prev)
+            {
+                //Left += $"\n{issue.section }\n";
+                Left += $"\n{issue.description.Hash()}\n";
+
+            }
+            var next = new JiraIssueProvider(i => Regex.IsMatch(i.epic, $".*BOD 18-02.*2021.*{Title}.*") && Regex.IsMatch(i.title, $".*Section.*")).Items;
+            foreach (var issue in next)
+            {
+                //Right += $"\n{issue.section}\n";
+                Right += $"\n{issue.description.Hash()}\n";
+            }
+
         } 
     }
 }
