@@ -1,0 +1,20 @@
+﻿@page
+@model ViewerModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<textarea class="full" style="height:100px;">@Model.View</textarea>
+<textarea class="full" style="height:9000px;">@Model.All</textarea>
+<div class="  ">
+    <div class="row">
+        <div class="col-sm-6">
+            <textarea class="full" style="height:50000px;">@Model.Left</textarea>
+        </div>
+        <div class="col-sm-6">
+            <textarea class="full" style="height:50000px;">@Model.Right</textarea>
+        </div>
+    </div> 
+</div>
+
